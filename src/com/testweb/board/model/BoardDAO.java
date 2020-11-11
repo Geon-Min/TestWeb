@@ -50,7 +50,7 @@ public class BoardDAO {
 	
 	public void regist(String writer, String title, String content ) {
 		
-		String sql = "insert into board (bno, writer, title, content)"
+		String sql = "insert into board2 (bno, writer, title, content)"
 				+ "values(bno_seq.nextval,?,?,?)";
 		try {
 			conn = ds.getConnection();
@@ -66,6 +66,44 @@ public class BoardDAO {
 		} finally {
 			JdbcUtil.close(conn, pstmt, null);
 		}
+	}
+	
+	//상세보기
+	/*
+	 * 번호 기준으로 select 구문으로 조회해서 BoardVO 저장하고,
+	 * vo 이름으로 화면에 데이터를 전달
+	 * 
+	 * request 저장
+	 */
+	
+	public BoardVO getcontent(String bno) {
+		
+		BoardVO vo = new BoardVO();
+		
+		String sql = "select * from board2 where bno = ?";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,"bno");
+			
+			pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo.setBno(rs.getInt("bno"));
+				vo.setWriter(rs.getString("writer"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setRegdate(rs.getTimestamp("regdate"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(conn, pstmt, rs);
+		}
+		
+		return vo;
 	}
 	
 	

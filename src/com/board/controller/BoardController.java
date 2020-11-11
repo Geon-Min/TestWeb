@@ -57,7 +57,6 @@ public class BoardController extends HttpServlet {
 			
 			service = new RegistServiceImpl();
 			service.execute(request, response);
-			
 			response.sendRedirect("bbs.board");
 		}
 		
