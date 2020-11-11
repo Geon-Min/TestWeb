@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>    
     
 <%@ include file = "../include/header.jsp"%>    
    
@@ -18,28 +20,19 @@
                             <th style="background-color: #9DCAFF; text-align: center;">작성일</th>
                         </tr>
                     </thead>
+                    
+                    <c:forEach var = "vo" items = "${list }">
                     <tbody>
                         <tr>
-                            <td>1</td>
-                            <td><a>Test</a></td>
-                            <td>Min</td>
-                            <td>2019-09-14 08:05</td>
+                            <td>${vo.bno }</td>
+                            <td><a>${vo.title }</a></td>
+                            <td>${vo.writer }</td>
+                            <td><fmt:formatDate value = "${vo.regdate }" pattern = "yyyy년MM월dd일"/></td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a></td>
-                            <td>MBW</td>
-                            <td>2019-09-15 13:05</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><a>Test Text</a></td>
-                            <td>박인욱</td>
-                            <td>2019-09-15 19:05</td>
-                        </tr>
+                        
                     </tbody>
+                    </c:forEach>
                 </table>
-
                 <div class="text-center">
                     <ul class="pagination pagination-sm">
                         <li><a href="#">이전</a></li>
@@ -50,7 +43,7 @@
                         <li><a href="#">5</a></li>
                         <li><a href="#">다음</a></li>
                     </ul>
-                    <button class="btn btn-info pull-right" onClick = "location.href = 'write.board'">글쓰기</button>
+                    <button class="btn btn-info pull-right" onClick = "location.href = 'list.board'">글쓰기</button>
                 </div>
                 
             </div>

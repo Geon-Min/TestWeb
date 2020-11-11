@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.testweb.board.service.BoardService;
+import com.testweb.board.service.GetListServiceImpl;
 import com.testweb.board.service.RegistServiceImpl;
 import com.testweb.user.service.UserService;
 
@@ -46,8 +47,10 @@ public class BoardController extends HttpServlet {
 		
 		if(command.equals("/board/bbs.board")) { //게시판 목차
 			
-			request.getRequestDispatcher("bbs.jsp").forward(request, response);
 			
+			
+			request.getRequestDispatcher("bbs.jsp").forward(request, response);
+
 		}else if(command.equals("/board/write.board")) { //글쓰기 화면
 			
 			request.getRequestDispatcher("bbs_write.jsp").forward(request, response);
@@ -58,6 +61,12 @@ public class BoardController extends HttpServlet {
 			service = new RegistServiceImpl();
 			service.execute(request, response);
 			response.sendRedirect("bbs.board");
+		}else if(command.equals("/board/list.board")) {
+			
+			service = new GetListServiceImpl();
+			service.execute(request, response);
+			
+			request.getRequestDispatcher("bbs.jsp").forward(request, response);
 		}
 		
 	}
